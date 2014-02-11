@@ -1,5 +1,7 @@
 # RunTests.jl
 
+[![Build Status](https://travis-ci.org/burrowsa/RunTests.jl.png?branch=master)](https://travis-ci.org/burrowsa/RunTests.jl)
+
 RunTests.jl is a test running framework for Julia. In its simplest form RunTests.jl saves you from writing `run_tests.jl` scripts that look like this:
 
     my_tests = ["test/sometests.jl",
