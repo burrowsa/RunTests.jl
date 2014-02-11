@@ -11,13 +11,4 @@ before_install:
 script:
   - julia -e 'Pkg.init(); run(`ln -s $(pwd()) $(Pkg.dir("RunTests"))`); Pkg.pin("RunTests"); Pkg.resolve()'
   - julia -e 'using RunTests; @assert isdefined(:RunTests); @assert typeof(RunTests) === Module'
-  - julia ./test/test1/one.jl
-  - julia ./test/test1/two.jl
-  - julia ./test/test1/more/three.jl
-  - julia ./test/test1/more/evenmore/five.jl
-  - julia ./test/test1/more/evenmore/six.jl
-  - julia ./test/test1/more/evenmore/seven.jl
-  - julia ./test/test2/sometests.jl
-  - julia ./test/test3/hfkdshfldh.jl
-  - julia ./test/test4/dfghjklrtyuio.jl
   - julia ./run_tests.jl
