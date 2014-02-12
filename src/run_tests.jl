@@ -66,7 +66,7 @@ function run_tests(modules::Vector{Module})
   const pm = Progress(length(tests), 0, "Running $(length(tests)) tests ", 30)
   const results = (Bool, Symbol, String)[]
   const failures = (String, String, String)[]
-  for (i, (name, test)) in enumerate(sort(tests))
+  for (i, (name, test)) in enumerate(sort(tests, by=x->x[1]))
     _, output, err = capture_output() do
       push!(results, test())
     end
