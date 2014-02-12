@@ -71,11 +71,11 @@ using Base.Test
   end
 
   @xfail function test_xfails()
-    @test true
+    @test false
   end
 
   @xfail function test_xpasses()
-    @test false
+    @test true
   end
 
 end
