@@ -2,7 +2,7 @@ export @skipif
 
 immutable Skipped end
 
-macro skipif(pred::Union(Expr, Bool), test::Expr)
+macro skipif(pred::Union(Expr, Bool, Symbol), test::Expr)
   const name = test.args[1].args[1]
   quote
     if $(esc(pred))

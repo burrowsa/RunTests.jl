@@ -62,6 +62,18 @@ using Base.Test
     @test true
   end
 
+  const SKIP_FALSE = false
+
+  @skipif SKIP_FALSE function test_not_skipped_constant()
+    @test true
+  end
+
+  const SKIP_TRUE = true
+
+  @skipif SKIP_TRUE function test_skipped_constant()
+    @test true
+  end
+
   @skipif (x->x)(100+25/5)==102+25/5 function test_not_skipped_complex()
     @test true
   end
