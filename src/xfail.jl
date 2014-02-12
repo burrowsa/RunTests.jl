@@ -18,9 +18,9 @@ function push_test!(tests::Vector{(String, Function)}, name::String, test::XFail
   function run_test()
     try
       test.fn()
-      return true, :green, "$name XPASSED"
+      return false, :green, "$name XPASSED"
     catch
-      return false, :red, "$name XFAILED"
+      return true, :red, "$name XFAILED"
     end
   end
   push!(tests, (name, run_test))

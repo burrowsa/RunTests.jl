@@ -69,6 +69,16 @@ module EachTestFolderOneAtATime
   regression_test("test/test5.out") do
     run_tests("test/test5")
   end
+
+  println("test6")
+  regression_test("test/test6.out") do
+    run_tests("test/test6")
+  end
+
+  println("test7")
+  regression_test("test/test7.out") do
+    run_tests("test/test7")
+  end
 end
 
 module AllTheTestsAtOnce
