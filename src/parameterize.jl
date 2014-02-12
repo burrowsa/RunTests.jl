@@ -2,8 +2,6 @@ export @parameterize
 
 using Base.Meta
 
-# TODO: allow users to use @skipif, @xfail and @parameterize in combination
-
 macro parameterize(params::Union(Expr, Symbol), test::Expr)
   const name = test.args[1].args[1]
   const args = test.args[1].args[2:]

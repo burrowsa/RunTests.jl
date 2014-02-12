@@ -16,7 +16,6 @@ function collect_module(m::Module)
   # If we have collector set then we'll call that if not we will run tests
   # this allows users to run individual modules directly while still allowing
   # defered execution.
-  # TODO: is there a better way to check if something is in TLS
   const func = try
                  task_local_storage(COLLECT_MODULE)
                catch

@@ -5,8 +5,8 @@ immutable XFail
 end
 
 macro xfail(test::Expr)
-  const name = test.args[1].args[1] #TODO: make this robust
-  const body = test.args[2] #TODO: make this robust
+  const name = test.args[1].args[1]
+  const body = test.args[2]
   quote
     const $(esc(name)) = XFail() do
                            $(esc(body))

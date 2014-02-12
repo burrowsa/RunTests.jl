@@ -3,7 +3,7 @@ export @skipif
 immutable Skipped end
 
 macro skipif(pred::Union(Expr, Bool), test::Expr)
-  const name = test.args[1].args[1] #TODO: make this robust
+  const name = test.args[1].args[1]
   quote
     if $(esc(pred))
       const $(esc(name)) = Skipped()
