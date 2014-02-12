@@ -4,7 +4,7 @@ using Base.Meta
 
 macro parameterize(params::Union(Expr, Symbol), test::Expr)
   const name = test.args[1].args[1]
-  const args = test.args[1].args[2:]
+  const args = test.args[1].args[2:end]
   const body = test.args[2]
   const func_expr = Expr(:function, Expr(:tuple, args...), body)
 
