@@ -78,4 +78,26 @@ using Base.Test
     @test true
   end
 
+  @parameterize 1:4 function test_parameterised(x)
+    @test x<3
+  end
+
+  @parameterize [1,2,3,4] function test_parameterised_with_types(x::Integer)
+    @test x<3
+  end
+
+  @parameterize [(1,4),(2,3),(3,2),(4,1)] function test_parameterised_2_args(x::Integer, y::Any)
+    @test x<y
+  end
+
+  @parameterize zip(1:4,4:-1:1) function test_parameterised_zip(x::Integer, y::Any)
+    @test x<y
+  end
+
+  const CONST_PARAMS = [1,2,3,4]
+
+  @parameterize CONST_PARAMS function test_parameterised_constant(x)
+    @test x<3
+  end
+
 end
