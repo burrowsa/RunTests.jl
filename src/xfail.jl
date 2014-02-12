@@ -8,9 +8,9 @@ macro xfail(test::Expr)
   const name = test.args[1].args[1] #TODO: make this robust
   const body = test.args[2] #TODO: make this robust
   quote
-    const $(esc(name)) = XFail(function()
-                                 $(esc(body))
-                               end)
+    const $(esc(name)) = XFail() do
+                           $(esc(body))
+                         end
   end
 end
 
