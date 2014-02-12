@@ -5,7 +5,9 @@ function findtestfiles(path::String)
       if isfile(filepath) && endswith(lowercase(filename), ".jl")
         produce(filepath)
       elseif isdir(filepath)
-        map(produce, findtestfiles(filepath))
+        for file in findtestfiles(filepath)
+          produce(file)
+	end
       end
     end
   end)...] # I'm told this elipsis is redundant but it really isn't
