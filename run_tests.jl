@@ -19,6 +19,9 @@ module RegressionTest
 
   const REBASELINE_DFLT = ("--rebaseline" in ARGS)
 
+  make32(x::Any)=x
+  make32(x::Integer)=int32(x)
+
   function regression_test(fn::Function, baseline_file::String; rebaseline::Bool=REBASELINE_DFLT)
     result, data, err = RunTests.capture_output() do
       fn()
@@ -26,7 +29,7 @@ module RegressionTest
 
     if rebaseline
       open(baseline_file, "w") do f
-        serialize(f, result)
+        serialize(f, make32(result))
         serialize(f, data)
         serialize(f, err)
       end
