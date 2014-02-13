@@ -26,6 +26,7 @@ But it has more to offer than that! RunTests.jl builds on top of Julia's `Base.T
   * You get a progress bar showing how far through the tests you are, it is green while all the tests are passing and goes red if any fail
   * Using modules and functions to structure test files gives you a natural isolation between tests.
   * You can selectively skip tests with `@skipif` and mark failing tests with `@xfail`.
+  * Using `@parameterize` you can run the same test again again with different parameters and see which pass and which fail.
 
 Here is an example test file written using RunTests.jl that demonstrates a number of features of the package:
 
@@ -62,24 +63,49 @@ Here is an example test file written using RunTests.jl that demonstrates a numbe
         @test true
       end
     
+      @parameterize 1:4 function test_parameterized(x)
+        @test x<3
+      end
+    
     end
 
 Running the file will run the tests and you will get this output:
-
-    Running 6 tests 100%|##############################| Time: 0:00:00
+    
+    Running 10 tests 100%|##############################| Time: 0:00:01
     
     Tests:
     ======
     
     ExampleTests.test_not_skipped PASSED
     ExampleTests.test_one PASSED
+    ExampleTests.test_parameterized[1] PASSED
+    ExampleTests.test_parameterized[2] PASSED
+    ExampleTests.test_parameterized[3] FAILED
+    ExampleTests.test_parameterized[4] FAILED
     ExampleTests.test_skipped SKIPPED
     ExampleTests.test_two FAILED
     ExampleTests.test_xfails XFAILED
     ExampleTests.test_xpasses XPASSED
     
-    
     =================================== Failures ===================================
+    
+    ---------------------- ExampleTests.test_parameterized[3] ---------------------
+    
+    test failed: :((x<3))
+     in error at error.jl:21
+     in default_handler at test.jl:19
+     in do_test at test.jl:39
+
+     --------------------------------------------------------------------------------
+    
+    ---------------------- ExampleTests.test_parameterized[4] ---------------------
+    
+    test failed: :((x<3))
+     in error at error.jl:21
+     in default_handler at test.jl:19
+     in do_test at test.jl:39
+    
+    --------------------------------------------------------------------------------
     
     ----------------------------- ExampleTests.test_two ----------------------------
     
@@ -93,9 +119,11 @@ Running the file will run the tests and you will get this output:
     seen
     also seen
 
-    --------------------------------------------------------------------------------
-        
-    ================ 1 failed 2 passed 1 skipped 1 xfailed 1 xpassed ===============
+    --------------------------------------------------------------------------------    
+    
+    ================ 3 failed 4 passed 1 skipped 1 xfailed 1 xpassed ===============
+
+_Note:_ If you want color-coded output then be sure to pass `--color=yes` to julia
 
 But you can also run the file along with many others by putting them under the same directory (sub directories work too) and running them all together with:
 
@@ -104,4 +132,4 @@ But you can also run the file along with many others by putting them under the s
 
 When you run many test files together, like this, all their tests are pooled and you get one report for them all. If you don't specify a directory `run_tests` will default to running tests from the "test" folder.
 
-RunTests.jl is extensible, in fact `@xfail` and `@skipif` are implemented as extensions. You can extend RunTests.jl to add further types of tests or categories of test result.
+RunTests.jl is extensible, in fact `@xfail`, `@skipif` and `parameterize` are implemented as extensions. You can extend RunTests.jl to add further types of tests or categories of test result.
