@@ -31,7 +31,7 @@ module RegressionTest
 
     # Strip line numbers out of stack traces
     data = replace(replace(data, r":[0-9]+$", ""), r":[0-9]+\n", "\n")
-    data = replace(data, pwd(), "")
+    data = replace(data, Pkg.dir("RunTests"), "")
 
     if rebaseline
       open(baseline_file, "w") do f
