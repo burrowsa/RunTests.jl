@@ -29,6 +29,9 @@ module RegressionTest
        reraise(err)
     end
 
+    # Strip line numbers out of stack traces
+    data = replace(replace(data, r":[0-9]+$", ""), r":[0-9]+\n", "\n")
+
     if rebaseline
       open(baseline_file, "w") do f
         serialize(f, result)
@@ -37,10 +40,7 @@ module RegressionTest
       println("Regenerated baseline file: $baseline_file")
     else
       open(baseline_file, "r") do f
-        const expected_result=deserialize(f) 
-        println(typeof(result), " ", result) 
-        println(typeof(expected_result), " ", expected_result) 
-        @test result==expected_result
+        @test result==deserialize(f)
         @test data==deserialize(f)
       end
     end
@@ -96,3 +96,4 @@ module AllTheTestsAtOnce
     run_tests()
   end
 end
+
