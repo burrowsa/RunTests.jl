@@ -51,10 +51,10 @@ module EachTestFolderOneAtATime
   using RegressionTest
   using RunTests
 
-  println("test1")
-  regression_test("test/test1.out") do
-    run_tests("test/test1")
-  end
+#  println("test1")
+#  regression_test("test/test1.out") do
+#    run_tests("test/test1")
+#  end
 
   println("test2")
   regression_test("test/test2.out") do
@@ -87,13 +87,13 @@ module EachTestFolderOneAtATime
   end
 end
 
-module AllTheTestsAtOnce
-  using RegressionTest
-  using RunTests
-
-  println("testAll")
-  regression_test("test/testAll.out") do
-    run_tests()
-  end
-end
+#module AllTheTestsAtOnce
+#  using RegressionTest
+#  using RunTests
+#
+#  println("testAll")
+#  regression_test("test/testAll.out") do
+#    run_tests()
+#  end
+#end
 
