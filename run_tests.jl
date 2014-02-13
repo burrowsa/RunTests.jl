@@ -26,7 +26,7 @@ module RegressionTest
     end
 
     if err!=Nothing
-       reraise(err)
+       rethrow(err)
     end
 
     # Strip line numbers and filepaths out of stack traces

@@ -72,7 +72,7 @@ function run_tests(modules::Vector{Module})
 
     if err!=Nothing
       push!(results, (false, :red, "$name FAILED"))
-      push!(failures, (name, output, stringify_error(err, catch_backtrace())))
+      push!(failures, (name, output, stringify_error(err, catch_backtrace()[1:length(backtrace())])))
     end
 
     if show_progress
