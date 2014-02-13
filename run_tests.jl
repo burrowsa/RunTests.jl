@@ -42,7 +42,15 @@ module RegressionTest
     else
       open(baseline_file, "r") do f
         @test result==deserialize(f)
-        @test data==deserialize(f)
+        const expected=deserialize(f)
+        if data!=expected
+          println(">>>>>>>>>>")
+          println(data)
+          println(">>>>>>>>>>")
+          println(expected)
+          println(">>>>>>>>>>")
+        end
+        @test data==expected
       end
     end
   end
