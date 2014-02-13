@@ -29,9 +29,10 @@ module RegressionTest
        reraise(err)
     end
 
-    # Strip line numbers out of stack traces
+    # Strip line numbers and filepaths out of stack traces
     data = replace(replace(data, r":[0-9]+$", ""), r":[0-9]+\n", "\n")
     data = replace(data, Pkg.dir("RunTests"), "")
+    data = replace(data, pwd(), "")
 
     if rebaseline
       open(baseline_file, "w") do f
