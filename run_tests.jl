@@ -39,7 +39,7 @@ module RegressionTest
     else
       open(baseline_file, "r") do f
         @test result==deserialize(f)
-        @test expected==deserialize(f)
+        @test data==deserialize(f)
       end
     end
   end
