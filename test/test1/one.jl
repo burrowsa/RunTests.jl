@@ -32,15 +32,6 @@ using Base.Test
     @test 100==100
   end
 
-  function test_bar()
-    println("seen")
-    @test true
-    println("also seen")
-    @test error("boo")
-    println("never seen")
-    @test 100==100
-  end
-
   function test_baz()
     @test false
   end

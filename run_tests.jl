@@ -9,6 +9,7 @@ module StandardizeRunTestsOutput
 
   RunTests.set_show_progress(false)
   RunTests.set_tty_cols(80)
+  RunTests.set_show_backtraces(false)
 end
 
 module RegressionTest
@@ -28,11 +29,6 @@ module RegressionTest
     if err!=Nothing
        rethrow(err)
     end
-
-    # Strip line numbers and filepaths out of stack traces
-    data = replace(replace(data, r":[0-9]+$", ""), r":[0-9]+\n", "\n")
-    data = replace(data, Pkg.dir("RunTests"), "")
-    data = replace(data, pwd(), "")
 
     if rebaseline
       open(baseline_file, "w") do f

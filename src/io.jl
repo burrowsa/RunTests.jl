@@ -4,9 +4,19 @@ function set_tty_cols(val::Integer)
   global tty_cols = val
 end
 
+show_backtraces = true
+
+function set_show_backtraces(val::Bool)
+  global show_backtraces = val
+end
+
 function stringify_error(err, bt)
   const buff = IOBuffer()
-  showerror(buff, err, bt)
+  if show_backtraces
+    showerror(buff, err, bt)
+  else
+    showerror(buff, err)
+  end
   return UTF8String(buff.data)
 end
 
