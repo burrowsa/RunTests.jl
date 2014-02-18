@@ -103,7 +103,7 @@ function run_tests(modules::Vector{Module})
   if !isempty(results)
     const status_counts = Dict{String, Integer}()
     for (ok, colour, result) in results
-      const status = lowercase(split(result)[2])
+      const status = lowercase(split(result)[end])
       status_counts[status] = get(status_counts, status, 0) + 1
     end
     const status_summary = join(["$count $status" for (status, count) in sort(collect(status_counts))], " ")
