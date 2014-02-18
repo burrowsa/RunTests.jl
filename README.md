@@ -123,8 +123,6 @@ Running the file will run the tests and you will get this output:
     
     ================ 3 failed 4 passed 1 skipped 1 xfailed 1 xpassed ===============
 
-_Note:_ If you want color-coded output then be sure to pass `--color=yes` to julia
-
 But you can also run the file along with many others by putting them under the same directory (sub directories work too) and running them all together with:
 
     using RunTests
@@ -132,4 +130,4 @@ But you can also run the file along with many others by putting them under the s
 
 When you run many test files together, like this, all their tests are pooled and you get one report for them all. If you don't specify a directory `run_tests` will default to running tests from the "test" folder.
 
-RunTests.jl is extensible, in fact `@xfail`, `@skipif` and `parameterize` are implemented as extensions. You can extend RunTests.jl to add further types of tests or categories of test result.
+RunTests.jl is extensible, in fact `@xfail`, `@skipif` and `@parameterize` are implemented as extensions. You can extend RunTests.jl to add further types of tests or categories of test result.
