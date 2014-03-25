@@ -91,7 +91,7 @@ module AllTheTestsAtOnce
   using RegressionTest
   using RunTests
 
-  const PREFIX = VERSION < v"0.3.0" ? "0.2_" : ""
+  const PREFIX = VERSION < v"0.3.0-" ? "0.2_" : ""
 
   println("testAll")
   regression_test(Pkg.dir("RunTests", "test", "$(PREFIX)testAll.out")) do
