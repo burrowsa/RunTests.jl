@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.org/burrowsa/RunTests.jl.png?branch=master)](https://travis-ci.org/burrowsa/RunTests.jl)
 
-RunTests.jl is a test running framework for Julia. In its simplest form RunTests.jl saves you from writing `run_tests.jl` scripts that look like this:
+RunTests.jl is a test running framework for Julia. In its simplest form RunTests.jl saves you from writing `test/runtests.jl` scripts that look like this:
 
-    my_tests = ["test/sometests.jl",
-                "test/somemoretests.jl",
-                "test/evenmoretests.jl"]
+    my_tests = ["sometests.jl",
+                "somemoretests.jl",
+                "evenmoretests.jl"]
 
     println("Running tests:")
     for my_test in my_tests
@@ -17,6 +17,13 @@ and allows you to write them, more simply, like this:
 
     using RunTests
     exit(run_tests())
+
+Or if you wish to be explicit what test files are run and in what order (not recomended, ideally the order tests are run should not matter) you can do this:
+
+    using RunTests
+    exit(run_tests(["sometests.jl",
+                    "somemoretests.jl",
+                    "evenmoretests.jl"]))
 
 But it has more to offer than that! RunTests.jl builds on top of Julia's `Base.Test` library to make it easy to add structure to your tests. Structuring your tests with RunTests.jl gives the following advantages:
 

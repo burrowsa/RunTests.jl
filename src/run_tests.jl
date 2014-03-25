@@ -34,7 +34,7 @@ function push_test!(tests::Vector{(String, Function)}, name::String, test::Funct
   push!(tests, (name, run_test))
 end
 
-run_tests(testdir::String="test") = run_tests(findtestfiles(testdir))
+run_tests(testdir::String=".") = run_tests(findtestfiles(testdir))
 
 function run_tests(filenames::Vector{String})
   function collector(m::Module)
