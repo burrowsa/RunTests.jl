@@ -49,7 +49,7 @@ module EachTestFolderOneAtATime
   using RegressionTest
   using RunTests
 
-  const PREFIX = VERSION < v"0.3.0" ? "0.2_" : ""
+  const PREFIX = VERSION < v"0.3.0-" ? "0.2_" : ""
 
   println("test1")
   regression_test(Pkg.dir("RunTests", "test", "$(PREFIX)test1.out")) do
