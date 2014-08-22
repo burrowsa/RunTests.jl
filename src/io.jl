@@ -1,4 +1,4 @@
-tty_cols = Base.tty_cols()
+tty_cols = Base.tty_size()[2]
 
 function set_tty_cols(val::Integer)
   global tty_cols = val
