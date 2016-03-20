@@ -52,17 +52,17 @@ end
 
 function run_tests(modules::Vector{Module})
   const tests = (String, Function)[]
+  const pm = Progress(length(tests), 0, "Running $(length(tests)) tests ", 30)
   for m in modules, name in Base.names(m, true)
     val = getfield(m, name)
     if beginswith(string(name), "test_")
       push_test!(tests, "$m.$name", val)
       if show_progress
-        ProgressMeter.printover("found $(length(tests)) tests...")
+        ProgressMeter.printover(pm.output, "found $(length(tests)) tests...")
       end
     end
   end
 
-  const pm = Progress(length(tests), 0, "Running $(length(tests)) tests ", 30)
   const results = (Bool, Symbol, String)[]
   const failures = (String, String, String)[]
   for (i, (name, test)) in enumerate(sort(tests, by=x->x[1]))
@@ -76,7 +76,7 @@ function run_tests(modules::Vector{Module})
     end
 
     if show_progress
-      next!(pm, all(x->x[1], results) ? :green : :red)
+      update!(pm, all(x->x[1], results) ? :green : :red)
     end
   end
 
