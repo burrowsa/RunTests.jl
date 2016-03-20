@@ -13,4 +13,4 @@ macro skipif(pred::Union(Expr, Bool, Symbol), test::Expr)
   end
 end
 
-push_test!(tests::Vector{(String, Function)}, name::String, test::Skipped) = push!(tests, (name, () -> (true, :yellow, "$name SKIPPED")))
+push_test!(tests::Vector{Tuple{AbstractString, Function}}, name::AbstractString, test::Skipped) = push!(tests, (name, () -> (true, :yellow, "$name SKIPPED")))

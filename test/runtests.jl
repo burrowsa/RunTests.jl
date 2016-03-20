@@ -21,12 +21,12 @@ module RegressionTest
   const REBASELINE_DFLT = ("--rebaseline" in ARGS)
 
 
-  function regression_test(fn::Function, baseline_file::String; rebaseline::Bool=REBASELINE_DFLT)
+  function regression_test(fn::Function, baseline_file::AbstractString; rebaseline::Bool=REBASELINE_DFLT)
     result, data, err = RunTests.capture_output() do
       fn()
     end
 
-    if err!=Nothing
+    if err!=Void
        rethrow(err)
     end
 

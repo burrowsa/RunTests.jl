@@ -18,7 +18,7 @@ immutable Parameterize
   params::Any
 end
 
-function push_test!(tests::Vector{(String, Function)}, name::String, test::Parameterize)
+function push_test!(tests::Vector{Tuple{AbstractString, Function}}, name::AbstractString, test::Parameterize)
   for params in test.params
     push_test!(tests, "$(name)[$params]", ()->test.fn(params...))
   end
