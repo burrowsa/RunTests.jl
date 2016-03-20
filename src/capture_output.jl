@@ -6,9 +6,9 @@ function capture_output(fn::Function)
   Base.eval(:(STDERR = $buff))
 
   try
-    return fn(), UTF8String(buff.data), Nothing
+    return fn(), UTF8String(buff.data), Void
   catch err
-    return Nothing, UTF8String(buff.data), err
+    return Void, UTF8String(buff.data), err
   finally
     Base.eval(:(STDOUT = $OUT))
     Base.eval(:(STDERR = $ERR))

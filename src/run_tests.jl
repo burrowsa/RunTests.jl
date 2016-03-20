@@ -24,9 +24,9 @@ function collect_module(m::Module)
   func(m)
 end
 
-push_test!(tests::Vector{(String, Function)}, name::String, test::Any) = Nothing
+push_test!(tests::Vector{Tuple{AbstractString, Function}}, name::AbstractString, test::Any) = Void
 
-function push_test!(tests::Vector{(String, Function)}, name::String, test::Function)
+function push_test!(tests::Vector{Tuple{AbstractString, Function}}, name::AbstractString, test::Function)
   function run_test()
     test()
     return true, :green, "$name PASSED"
@@ -34,9 +34,9 @@ function push_test!(tests::Vector{(String, Function)}, name::String, test::Funct
   push!(tests, (name, run_test))
 end
 
-run_tests(testdir::String=".") = run_tests(findtestfiles(testdir))
+run_tests(testdir::AbstractString=".") = run_tests(findtestfiles(testdir))
 
-function run_tests(filenames::Vector{String})
+function run_tests(filenames::Array{AbstractString})
   function collector(m::Module)
     push!(test_modules, m)
   end
@@ -50,33 +50,33 @@ function run_tests(filenames::Vector{String})
   run_tests(test_modules)
 end
 
-function run_tests(modules::Vector{Module})
-  const tests = (String, Function)[]
+function run_tests(modules::Array{Module})
+  const tests = (ASCIIString, Function)[]
+  const pm = Progress(length(tests), 0, "Running $(length(tests)) tests ", 30)
   for m in modules, name in Base.names(m, true)
     val = getfield(m, name)
     if beginswith(string(name), "test_")
       push_test!(tests, "$m.$name", val)
       if show_progress
-        ProgressMeter.printover("found $(length(tests)) tests...")
+        ProgressMeter.printover(pm.output, "found $(length(tests)) tests...")
       end
     end
   end
 
-  const pm = Progress(length(tests), 0, "Running $(length(tests)) tests ", 30)
-  const results = (Bool, Symbol, String)[]
-  const failures = (String, String, String)[]
+  const results = (Bool, Symbol, ASCIIString)[]
+  const failures = (ASCIIString, ASCIIString, ASCIIString)[]
   for (i, (name, test)) in enumerate(sort(tests, by=x->x[1]))
     _, output, err = capture_output() do
       push!(results, test())
     end
 
-    if err!=Nothing
+    if err!=Void
       push!(results, (false, :red, "$name FAILED"))
       push!(failures, (name, output, stringify_error(err, catch_backtrace())))
     end
 
     if show_progress
-      next!(pm, all(x->x[1], results) ? :green : :red)
+      update!(pm, all(x->x[1], results) ? :green : :red)
     end
   end
 
@@ -101,7 +101,7 @@ function run_tests(modules::Vector{Module})
   end
 
   if !isempty(results)
-    const status_counts = Dict{String, Integer}()
+    const status_counts = Dict{ASCIIString, Integer}()
     for (ok, colour, result) in results
       const status = lowercase(split(result)[end])
       status_counts[status] = get(status_counts, status, 0) + 1

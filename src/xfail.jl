@@ -14,7 +14,7 @@ macro xfail(test::Expr)
   end
 end
 
-function push_test!(tests::Vector{(String, Function)}, name::String, test::XFail)
+function push_test!(tests::Vector{Tuple{AbstractString, Function}}, name::AbstractString, test::XFail)
   function run_test()
     try
       test.fn()

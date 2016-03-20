@@ -20,13 +20,13 @@ function stringify_error(err, bt)
   return UTF8String(buff.data)
 end
 
-function centre(message::String, padwith::Char='=')
+function centre(message::AbstractString, padwith::Char='=')
   const padding = max(0, tty_cols - (length(message)+2))
   const padstr = "$padwith"
   return "$(padstr^int(ceil(padding/2))) $message $(padstr^int(floor(padding/2)))"
 end
 
-function underline(message::String, underlinewith::Char='=')
+function underline(message::AbstractString, underlinewith::Char='=')
   const underlinestr = "$underlinewith"
   return "$message\n$(underlinestr^length(message))"
 end
