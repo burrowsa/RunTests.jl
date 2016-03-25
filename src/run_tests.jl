@@ -24,9 +24,9 @@ function collect_module(m::Module)
   func(m)
 end
 
-push_test!(tests::Vector{(String, Function)}, name::String, test::Any) = Nothing
+push_test!(tests::Vector{Tuple{String, Function}}, name::String, test::Any) = Nothing
 
-function push_test!(tests::Vector{(String, Function)}, name::String, test::Function)
+function push_test!(tests::Vector{Tuple{String, Function}}, name::String, test::Function)
   function run_test()
     test()
     return true, :green, "$name PASSED"
@@ -51,7 +51,7 @@ function run_tests(filenames::Vector{String})
 end
 
 function run_tests(modules::Vector{Module})
-  const tests = (String, Function)[]
+  const tests = Tuple{String, Function}[]
   for m in modules, name in Base.names(m, true)
     val = getfield(m, name)
     if beginswith(string(name), "test_")
@@ -63,8 +63,8 @@ function run_tests(modules::Vector{Module})
   end
 
   const pm = Progress(length(tests), 0, "Running $(length(tests)) tests ", 30)
-  const results = (Bool, Symbol, String)[]
-  const failures = (String, String, String)[]
+  const results = Tuple{Bool, Symbol, String}[]
+  const failures = Tuple{String, String, String}[]
   for (i, (name, test)) in enumerate(sort(tests, by=x->x[1]))
     _, output, err = capture_output() do
       push!(results, test())

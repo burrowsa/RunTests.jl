@@ -16,7 +16,7 @@ module RegressionTest
   import RunTests
   import Base.Test.@test
 
-  export regression_test
+  export regression_test, @test
 
   const REBASELINE_DFLT = ("--rebaseline" in ARGS)
 
@@ -48,6 +48,7 @@ end
 module EachTestFolderOneAtATime
   using RegressionTest
   using RunTests
+  import Base.Test.@test
 
   const PREFIX = VERSION < v"0.3.0-" ? "0.2_" : ""
 
@@ -90,6 +91,7 @@ end
 module AllTheTestsAtOnce
   using RegressionTest
   using RunTests
+  import Base.Test.@test
 
   const PREFIX = VERSION < v"0.3.0-" ? "0.2_" : ""
 
