@@ -16,17 +16,17 @@ module RegressionTest
   import RunTests
   import Base.Test.@test
 
-  export regression_test
+  export regression_test, @test
 
   const REBASELINE_DFLT = ("--rebaseline" in ARGS)
 
 
-  function regression_test(fn::Function, baseline_file::String; rebaseline::Bool=REBASELINE_DFLT)
+  function regression_test(fn::Function, baseline_file::AbstractString; rebaseline::Bool=REBASELINE_DFLT)
     result, data, err = RunTests.capture_output() do
       fn()
     end
 
-    if err!=Nothing
+    if err!=nothing
        rethrow(err)
     end
 
@@ -48,6 +48,7 @@ end
 module EachTestFolderOneAtATime
   using RegressionTest
   using RunTests
+  import Base.Test.@test
 
   const PREFIX = VERSION < v"0.3.0-" ? "0.2_" : ""
 
@@ -90,6 +91,7 @@ end
 module AllTheTestsAtOnce
   using RegressionTest
   using RunTests
+  import Base.Test.@test
 
   const PREFIX = VERSION < v"0.3.0-" ? "0.2_" : ""
 

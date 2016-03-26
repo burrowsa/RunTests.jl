@@ -1,9 +1,9 @@
-function findtestfiles(path::String)
+function findtestfiles(path::AbstractString)
   # We may be called from the package directory or the test directory
   if (!isdir(path) || path==".") && isdir(joinpath("test", path)) && basename(pwd())!="test"
     path = joinpath("test", path)
   end
-  return String[collect(Task() do
+  return AbstractString[collect(Task() do
     for filename in readdir(path)
       filepath = abspath(path, filename)
       if isfile(filepath) && endswith(lowercase(filename), ".jl") && filename!="runtests.jl"

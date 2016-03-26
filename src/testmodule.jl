@@ -4,6 +4,8 @@ macro testmodule(name::Symbol, ex::Expr)
   const body = Expr(:block,
                     :(eval(x) = Core.eval($name, x)),
                     :(eval(m,x) = Core.eval(m, x)),
+                    :(using RegressionTest, RunTests),
+                    :(import Base.Test.@test),
                     ex.args...)
   const make_module = Expr(:module, true, esc(name), esc(body))
   const post_process = :(collect_module($(esc(name))))

@@ -2,7 +2,7 @@ export @parameterize
 
 using Base.Meta
 
-macro parameterize(params::Union(Expr, Symbol), test::Expr)
+macro parameterize(params::Union{Expr, Symbol}, test::Expr)
   const name = test.args[1].args[1]
   const args = test.args[1].args[2:end]
   const body = test.args[2]
@@ -18,7 +18,7 @@ immutable Parameterize
   params::Any
 end
 
-function push_test!(tests::Vector{(String, Function)}, name::String, test::Parameterize)
+function push_test!(tests::Vector{Tuple{AbstractString, Function}}, name::AbstractString, test::Parameterize)
   for params in test.params
     push_test!(tests, "$(name)[$params]", ()->test.fn(params...))
   end
