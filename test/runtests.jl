@@ -53,37 +53,37 @@ module EachTestFolderOneAtATime
   const PREFIX = VERSION < v"0.5.0-" ? VERSION > v"0.3.0-" ? "0.4_" : "0.2_" : ""
 
   println("test1")
-  regression_test(Pkg.dir("RunTests", "test", "$(PREFIX)test1.out")) do
+  regression_test(joinpath(dirname(@__FILE__), "$(PREFIX)test1.out")) do
     run_tests("test1")
   end
 
   println("test2")
-  regression_test(Pkg.dir("RunTests", "test", "$(PREFIX)test2.out")) do
+  regression_test(joinpath(dirname(@__FILE__), "$(PREFIX)test2.out")) do
     run_tests("test2")
   end
 
   println("test3")
-  regression_test(Pkg.dir("RunTests", "test", "$(PREFIX)test3.out")) do
+  regression_test(joinpath(dirname(@__FILE__), "$(PREFIX)test3.out")) do
     run_tests("test3")
   end
 
   println("test4")
-  regression_test(Pkg.dir("RunTests", "test", "$(PREFIX)test4.out")) do
+  regression_test(joinpath(dirname(@__FILE__), "$(PREFIX)test4.out")) do
     run_tests("test4")
   end
 
   println("test5")
-  regression_test(Pkg.dir("RunTests", "test", "$(PREFIX)test5.out")) do
+  regression_test(joinpath(dirname(@__FILE__), "$(PREFIX)test5.out")) do
     run_tests("test5")
   end
 
   println("test6")
-  regression_test(Pkg.dir("RunTests", "test", "$(PREFIX)test6.out")) do
+  regression_test(joinpath(dirname(@__FILE__), "$(PREFIX)test6.out")) do
     run_tests("test6")
   end
 
   println("test7")
-  regression_test(Pkg.dir("RunTests", "test", "$(PREFIX)test7.out")) do
+  regression_test(joinpath(dirname(@__FILE__), "$(PREFIX)test7.out")) do
     run_tests("test7")
   end
 end
@@ -96,7 +96,7 @@ module AllTheTestsAtOnce
   const PREFIX = VERSION < v"0.5.0-" ? VERSION > v"0.3.0-" ? "0.4_" : "0.2_" : ""
 
   println("testAll")
-  regression_test(Pkg.dir("RunTests", "test", "$(PREFIX)testAll.out")) do
+  regression_test(joinpath(dirname(@__FILE__), "$(PREFIX)testAll.out")) do
     run_tests()
   end
 end
